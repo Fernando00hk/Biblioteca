@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+{% block title %}Libros{% endblock %}
+{% block body %}
+<div class="container">
+  <h1>Información de Libros</h1>
+  <form class="form-inline mb-4" method="GET" action="{{ url_for('libros') }}">
+    <input
+      type="text"
+      name="buscar"
+      class="form-control"
+      size="100" 
+      maxlength="100"   
+      placeholder="Busca un libro por su nombre, autor o código de barras..."
+    />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Ver</th>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Autor</th>
+        <th>Código de Barras</th>
+        <th>Categoría</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for libro in libros %}
+        <tr>
+          {% if current_user.is_authenticated %}
+          {% endif %}
+          <td>
+            <a href="{{ url_for('detalle_libro', libro_id=libro[0]) }}" class="btn btn-secondary">
+              <i class="fas fa-eye"></i> Ver
+            </a>
+          </td>
+          <td>{{ libro[0] }}</td>
+          <td>{{ libro[1] }}</td>
+          <td>{{ libro[2] }}</td>
+          <td>{{ libro[3] }}</td>
+          <td>{{ libro[5] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Mostrar el paginador -->
+  <div class="pagination justify-content-center mt-4">
+    {% if pagination.has_prev %}
+      <a href="{{ url_for('libros', page=pagination.prev_num) }}" class="page-link">Anterior</a>
+    {% endif %}
+  
+    {% if pagination.page > 3 %}
+      <a href="{{ url_for('libros', page=1) }}" class="page-link">1</a>
+      <span class="ellipsis page-link">...</span>
+    {% endif %}
+  
+    {% for page in pagination.pages %}
+      {% if page == pagination.page %}
+        <span class="current page-link">{{ page }}</span>
+      {% else %}
+        <a href="{{ url_for('libros', page=page) }}" class="page-link">{{ page }}</a>
+      {% endif %}
+    {% endfor %}
+  
+    {% if pagination.page < pagination.total_pages - 2 %}
+      <span class="ellipsis page-link">...</span>
+      <a href="{{ url_for('libros', page=pagination.total_pages) }}" class="page-link">{{ pagination.total_pages }}</a>
+    {% endif %}
+  
+    {% if pagination.has_next %}
+    <a href="{{ url_for('libros', page=pagination.pages) }}" class="page-link">Final</a>
+  {% endif %}
+  </div>
+  
+  </div>
+  {% endblock %}

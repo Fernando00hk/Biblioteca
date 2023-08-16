@@ -1,0 +1,16 @@
+{% extends 'layout.html' %} {% block title %}Confirmar Eliminación{% endblock %}
+{% block body %}
+<div class="container">
+  <h1>¿Estás seguro de que deseas eliminar este autor?</h1>
+  <p>Nombre del Autor: {{ autor[1] }}</p>
+  <p>Fecha de Nacimiento: {{ autor[2] }}</p>
+  <p>Nacionalidad: {{ autor[3] }}</p>
+  <p>Información: {{ autor[4] }}</p>
+  <form method="post">
+    <input type="submit" value="Eliminar" class="btn btn-danger" />
+    <a href="{{ url_for('autores_ver') }}" class="btn btn-secondary"
+      >Cancelar</a
+    >
+  </form>
+</div>
+{% endblock %}

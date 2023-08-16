@@ -1,0 +1,61 @@
+{% if session['id_rol'] == 1 %} {% extends 'layout.html' %} {% block title
+%}Información del Autor{% endblock %} {% block body %}
+<div class="container">
+  <h1>Agregar Nuevo Autor</h1>
+  <form method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+    <div class="mb-3">
+      <label for="nombreautor" class="form-label">Nombre del Autor</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nombreautor"
+        name="nombreautor"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="fecha_nacimiento" class="form-label"
+        >Fecha de Nacimiento</label
+      >
+      <input
+        type="date"
+        class="form-control"
+        id="fecha_nacimiento"
+        name="fecha_nacimiento"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="nacionalidad" class="form-label">Nacionalidad</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nacionalidad"
+        name="nacionalidad"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="informacion" class="form-label">Información</label>
+      <textarea
+        class="form-control"
+        id="informacion"
+        name="informacion"
+        rows="5"
+        required
+      ></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="imagen" class="form-label">Imagen</label>
+      <input type="file" class="form-control" id="imagen" name="imagen" />
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>
+{% endblock %} {% else %}
+<p>
+  Not Found The requested URL was not found on the server. If you entered the
+  URL manually please check your spelling and try again.
+</p>
+{% endif %}

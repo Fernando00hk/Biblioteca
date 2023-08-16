@@ -1,0 +1,167 @@
+{% if session['id_rol'] == 1 %} {% extends 'layout.html' %} {% block title
+%}Agregar Libro{% endblock %} {% block body %}
+<div class="container">
+  <h1>Agregar Libro</h1>
+  <form
+    method="POST"
+    action="{{ url_for('libro_agregar') }}"
+    enctype="multipart/form-data"
+  >
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+    <div class="form-group">
+      <label for="titulo">Nombre del libro:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="titulo"
+        id="titulo"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="autor">Autor:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="autor"
+        id="autor"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="codigo_barras">Código de Barras:</label>
+      <input
+        type="text"
+        class="form-control"
+        name="codigo_barras"
+        id="codigo_barras"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="sinopsis">Sinopsis:</label>
+      <textarea
+        class="form-control"
+        id="sinopsis"
+        name="sinopsis"
+        rows="4"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="imagen">Imagen:</label>
+      <input
+        type="file"
+        class="form-control-file"
+        name="imagen"
+        id="imagen"
+        accept="image/*"
+      />
+    </div>
+    <div class="form-group">
+      <label for="categoria">Categoría:</label>
+      <select name="categoria" id="categoria" required class="form-control">
+        <option value="">Seleccione una categoría</option>
+        <option value="Ficción">
+          Ficción (Novelas, cuentos cortos, literatura clásica, etc.)
+        </option>
+        <option value="No ficción">
+          No ficción (Biografías, ensayos, historia, etc.)
+        </option>
+        <option value="Literatura infantil y juvenil">
+          Literatura infantil y juvenil
+        </option>
+        <option value="Ciencia ficción y fantasía">
+          Ciencia ficción y fantasía
+        </option>
+        <option value="Misterio y suspense">Misterio y suspense</option>
+        <option value="Romance">Romance</option>
+        <option value="Historia y cultura local/regional">
+          Historia y cultura local/regional
+        </option>
+        <option value="Política y sociedad">Política y sociedad</option>
+        <option value="Autoayuda y desarrollo personal">
+          Autoayuda y desarrollo personal
+        </option>
+        <option value="Ciencia y tecnología">Ciencia y tecnología</option>
+        <option value="Poesía">Poesía</option>
+        <option value="Religión y espiritualidad">
+          Religión y espiritualidad
+        </option>
+        <option value="Artes y música">Artes y música</option>
+        <option value="Deportes y recreación">Deportes y recreación</option>
+        <option value="Cocina y gastronomía">Cocina y gastronomía</option>
+        <option value="Medio ambiente y sostenibilidad">
+          Medio ambiente y sostenibilidad
+        </option>
+        <option value="Viajes y turismo">Viajes y turismo</option>
+        <option value="Literatura en idiomas extranjeros">
+          Literatura en idiomas extranjeros
+        </option>
+        <option value="Literatura clásica universal">
+          Literatura clásica universal
+        </option>
+        <option value="Educación y libros de referencia">
+          Educación y libros de referencia
+        </option>
+        <option value="Cómics y novelas gráficas">
+          Cómics y novelas gráficas
+        </option>
+        <option value="Literatura LGBTQ+">Literatura LGBTQ+</option>
+        <option value="Literatura de autores locales o nacionales">
+          Literatura de autores locales o nacionales
+        </option>
+        <option value="Libros sobre diversidad e inclusión">
+          Libros sobre diversidad e inclusión
+        </option>
+        <option value="Literatura de género negro y policíaca">
+          Literatura de género negro y policíaca
+        </option>
+        <option value="Literatura de ciencia y divulgación científica">
+          Literatura de ciencia y divulgación científica
+        </option>
+        <option value="Literatura de fantasía urbana">
+          Literatura de fantasía urbana
+        </option>
+        <option value="categoria28">Literatura histórica y de época</option>
+      </select>
+      <div class="form-group">
+        <label for="piezas">Piezas:</label>
+        <input
+          type="text"
+          class="form-control"
+          name="piezas"
+          id="piezas"
+          required
+        />
+      </div>
+      <div class="mb-3">
+        <label for="fecha_publicacion" class="form-label"
+          >Fecha de publicacion:</label
+        >
+        <input
+          type="date"
+          class="form-control"
+          id="fecha_publicacion"
+          name="fecha_publicacion"
+          required
+        />
+      </div>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Agregar" />
+  </form>
+
+  {% with messages = get_flashed_messages() %} {% if messages %}
+  <div class="alert alert-success" role="alert">
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+  </div>
+  {% endif %} {% endwith %}
+</div>
+{% endblock %} {% else %}
+<p>
+  Not Found The requested URL was not found on the server. If you entered the
+  URL manually please check your spelling and try again.
+</p>
+{% endif %}

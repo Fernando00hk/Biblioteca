@@ -1,0 +1,57 @@
+{% extends 'layout.html' %} 
+{% block title %}
+Lista de Autores
+{% endblock %} 
+{% block body %}
+<div class="container">
+  <h1>Lista de Autores</h1>
+  {% if current_user.is_authenticated %}
+    {% if session['id_rol'] == 1 %}
+      <a href="{{ url_for('autor_info') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i>
+        <!-- Icono de más -->
+        Agregar Autor
+      </a>
+    {% endif %}
+  {% endif %}
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre del Autor</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Nacionalidad</th>
+        <th>Información</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for autor in autores %}
+        <tr>
+          <td>{{ autor[0] }}</td>
+          <td>
+            <a href="{{ url_for('ver_autor', id=autor[0]) }}"> {{ autor[1] }} </a>
+          </td>
+          <td>{{ autor[2] }}</td>
+          <td>{{ autor[3] }}</td>
+          <td>{{ autor[4] }}</td>
+          <td>
+            {% if current_user.is_authenticated %}
+              {% if session['id_rol'] == 1 %}
+                <a href="{{ url_for('editar_autor', id=autor[0]) }}" class="btn btn-primary">
+                  <i class="fas fa-pencil-alt"></i>
+                  <!-- Icono de lápiz -->
+                </a>
+                <a href="{{ url_for('eliminar_autor', autor_id=autor[0]) }}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este autor?')">
+                  <i class="fas fa-trash-alt"></i>
+                  <!-- Icono de basurero -->
+                </a>
+              {% endif %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

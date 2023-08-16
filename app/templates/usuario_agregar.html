@@ -1,0 +1,42 @@
+{% if session['id_rol'] == 1 %} {% extends 'layout.html' %} {% block title
+%}Agregar Usuario{% endblock %} {% block body %}
+<div class="container">
+  <h1>Agregar Usuario</h1>
+  <form method="POST" action="{{ url_for('usuario_agregar') }}">
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" required />
+    {% if error_username %}
+    <div class="alert alert-danger" role="alert">{{ error_username }}</div>
+    {% endif %}
+
+    <label for="correo">Correo:</label>
+    <input type="email" name="correo" required />
+    {% if error_email %}
+    <div class="alert alert-danger" role="alert">{{ error_email }}</div>
+    {% endif %}
+
+    <label for="contrasena">Contraseña:</label>
+    <input type="password" name="contrasena" required />
+
+    <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+    <input type="date" name="fecha_nacimiento" required />
+
+    <label for="genero">Género:</label>
+    <select name="genero" required>
+      <option value="masculino">Masculino</option>
+      <option value="femenino">Femenino</option>
+    </select>
+
+    <label for="curp">CURP:</label>
+    <input type="text" name="curp" required />
+
+    <button type="submit" class="btn btn-primary">Agregar Usuario</button>
+  </form>
+</div>
+{% endblock %} {% else %}
+<p>
+  Not Found The requested URL was not found on the server. If you entered the
+  URL manually please check your spelling and try again.
+</p>
+{% endif %}

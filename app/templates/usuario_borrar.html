@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block title %}Eliminar Usuario{% endblock %}
+{% block body %}
+<div class="container">
+  <h1>Eliminar Usuario</h1>
+  <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+  <form action="{{ url_for('usuario_borrar', idusuario=usuario_id) }}" method="POST">
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{{ url_for('usuarios') }}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% if session['id_rol'] == 1 %} {% extends 'layout.html' %} {% block title
+%}Editar Usuario{% endblock %} {% block body %}
+<div class="container">
+  <h1>Editar Usuario</h1>
+  <form method="POST" action="{{ url_for('usuario_editar', id=usuario[0]) }}">
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+    <label for="nombre">Nombre:</label>
+    <input type="text" name="nombre" value="{{ usuario[1] }}" required /><br />
+    <label for="correo">Correo:</label>
+    <input type="email" name="correo" value="{{ usuario[2] }}" required /><br />
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  </form>
+</div>
+{% endblock %} {% else %}
+<p>
+  Not Found The requested URL was not found on the server. If you entered the
+  URL manually please check your spelling and try again
+</p>
+{% endif %}

@@ -1,0 +1,168 @@
+{% extends 'layout.html' %} {% block title %} Formulario de Préstamo {% endblock
+%} {% block body %}
+<div class="container">
+  <h1>Formulario de Préstamo</h1>
+  <form
+    method="post"
+    action="{{ url_for('generar_prestamo', libro_id=libro_id) }}"
+  >
+    <input type="hidden" name="csrf_token" value="{{csrf_token()}}" />
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre completo:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="nombre"
+        name="nombre"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="fecha_nacimiento" class="form-label"
+        >Fecha de Nacimiento:</label
+      >
+      <input
+        type="date"
+        class="form-control"
+        id="fecha_nacimiento"
+        name="fecha_nacimiento"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="direccion" class="form-label">Dirección:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="direccion"
+        name="direccion"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="correo" class="form-label">Correo:</label>
+      <input
+        type="email"
+        class="form-control"
+        id="correo"
+        name="correo"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="telefono" class="form-label">Teléfono:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="telefono"
+        name="telefono"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="institucion" class="form-label">Institución:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="institucion"
+        name="institucion"
+        required
+      />
+    </div>
+
+    <h2>Libros</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Autor</th>
+          <th>Título</th>
+          <th>Código</th>
+          <th>Piezas</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="libros-form">
+        <tr class="libro">
+          <td>
+            <input type="text" class="form-control" name="autor_1" required />
+          </td>
+          <td>
+            <input type="text" class="form-control" name="titulo_1" required />
+          </td>
+          <td>
+            <input type="text" class="form-control" name="codigo_1" required />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control"
+              name="piezas_1"
+              min="1"
+              required
+            />
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-danger"
+              onclick="eliminarLibro(this)"
+            >
+              Eliminar Libro
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    {% if mensaje_error %}
+    <div class="alert alert-danger">{{ mensaje_error }}</div>
+    {% endif %}
+
+    <button type="button" class="btn btn-primary" onclick="agregarLibro()">
+      Agregar Libro
+    </button>
+    <br /><br />
+    <button type="submit" class="btn btn-primary">Generar Préstamo</button>
+  </form>
+</div>
+
+<script>
+  let libroCounter = 1;
+
+  function agregarLibro() {
+    libroCounter++;
+    const librosForm = document.getElementById("libros-form");
+
+    const libroRow = document.createElement("tr");
+    libroRow.classList.add("libro");
+    libroRow.innerHTML = `
+      <td>
+        <input type="text" class="form-control" name="autor_${libroCounter}" required />
+      </td>
+      <td>
+        <input type="text" class="form-control" name="titulo_${libroCounter}" required />
+      </td>
+      <td>
+        <input type="text" class="form-control" name="codigo_${libroCounter}" required />
+      </td>
+      <td>
+        <input type="number" class="form-control" name="piezas_${libroCounter}" min="1" required />
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger" onclick="eliminarLibro(this)">
+          Eliminar Libro
+        </button>
+      </td>
+    `;
+
+    librosForm.appendChild(libroRow);
+  }
+
+  function eliminarLibro(btn) {
+    const libroRow = btn.closest(".libro");
+    if (libroRow) {
+      libroRow.remove();
+    }
+  }
+</script>
+{% endblock %}

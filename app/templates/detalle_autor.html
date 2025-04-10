@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+{% block title %}Información del Autor{% endblock %}
+{% block body %}
+<div class="container">
+  <h1>Información del Autor</h1>
+  <div class="autor-info">
+    <img
+      src="{{ url_for('static', filename='imagenes/imgau/' + autor[4]) }}"
+      alt="{{ autor[0] }}"
+      width="400"
+      height="300" 
+      style="float: left; margin-right: 20px;"
+      />
+    <div class="autor-detalle">
+      <h2>Nombre del Autor:</h2>
+      <p>{{ autor[0] }}</p>
+
+      <h2>Fecha de Nacimiento:</h2>
+      <p>{{ autor[1] }}</p>
+
+      <h2>Nacionalidad:</h2>
+      <p>{{ autor[2] }}</p>
+
+      <h2>Información:</h2>
+      <p>{{ autor[3] }}</p>
+    </div>
+    <div style="clear: both;"></div>
+  </div>
+</div>
+{% endblock %}
+
+

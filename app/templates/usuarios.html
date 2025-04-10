@@ -1,0 +1,89 @@
+{% if session['id_rol'] == 1 %}
+{% extends 'layout.html' %}
+{% block title %}Usuarios{% endblock %}
+{% block body %}
+<div class="container">
+  <h1>Información de Usuarios</h1>
+  <form class="form-inline mb-4" method="POST" action="{{ url_for('buscar_usuario') }}">
+    <input
+      type="text"
+      name="keyword"
+      class="form-control mr-sm-2"
+      size="100" 
+      maxlength="100"  
+      placeholder="Buscar usuario por nombre o correo..."
+    />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+  <a href="{{ url_for('usuario_agregar') }}" class="btn btn-primary">
+    <i class="fas fa-plus"></i> Nuevo usuario
+  </a>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  <p>{{ message }}</p>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  {% if usuarios %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Editar</th>
+        <th>Ver</th>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Contraseña</th>
+        <th>Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for usuario in usuarios %}
+      <tr>
+        <td>
+          <a href="{{ url_for('usuario_editar', id=usuario.id) }}" class="btn btn-primary">Editar</a>
+
+        </td>
+      </td>
+      <td>
+        <a
+          href="{{ url_for('detalle_usuario', id=usuario.id) }}"
+          class="btn btn-secondary"
+        >
+          <i class="fas fa-eye"></i> Ver
+        </a>
+      </td>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nombre }}</td>
+        <td>{{ usuario.correo }}</td>
+        <td>Contraseña oculta</td>
+        <td>    
+          <form action="{{ url_for('usuario_borrar', id=usuario.id) }}" method="POST" onsubmit="return confirmDelete()">
+            <button type="submit" class="btn btn-danger delete-btn">
+              <i class="fas fa-trash-alt"></i> Eliminar
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h2>No existen usuarios...</h2>
+  {% endif %}
+</div>
+
+<script>
+  function confirmDelete() {
+    return confirm("¿Desea eliminar el registro?");
+  }
+</script>
+{% endblock %}
+{% else %}
+<p>Not Found
+  The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again</p>
+{% endif %}

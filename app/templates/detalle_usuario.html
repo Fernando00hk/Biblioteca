@@ -1,0 +1,20 @@
+{% if session['id_rol'] == 1 %}
+{% extends 'layout.html' %} {% block title %}Detalle del Libro{% endblock %} {%
+  block body %}
+  <div class="container">
+    <h1>Información del Libro</h1>
+    <p><strong>ID:</strong> {{ usuario[0] }}</p>
+    <p><strong>Nombre:</strong> {{ usuario[1] }}</p>
+    <p><strong>Correo:</strong> {{ usuario[2] }}</p>
+    <p><strong>Contraseña:</strong> {{ usuario[3] }}</p>
+    <p><strong>Fecha de Nacimiento:</strong> {{ usuario[7] }}</p>
+    <p><strong>Genero:</strong> {{ usuario[8] }}</p>
+    <p><strong>CURP:</strong> {{ usuario[9] }}</p>
+    <!-- Agrega aquí cualquier otra información que desees mostrar sobre el usuario -->
+  
+  </div>
+  {% endblock %}
+  {% else %}
+<p>Not Found
+  The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+{% endif %}

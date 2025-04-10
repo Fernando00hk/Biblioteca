@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+{% block title %}Detalle del Libro{% endblock %}
+{% block body %}
+  <div class="container mt-5">
+    <h1 class="mb-4">Información del Libro</h1>
+    <div class="row">
+      <div class="col-md-4">
+        <img
+          src="{{ url_for('static', filename='imagenes/imglibros/' + (libro[4] if libro[4] else 'default.jpg')) }}"
+          alt="{{ libro[1] }}"
+          width="300"
+          class="mb-3"
+        />
+      </div>
+      <div class="col-md-8">
+        <p><strong>ID:</strong> {{ libro[0] }}</p>
+        <p><strong>Nombre del libro:</strong> {{ libro[1] }}</p>
+        <p><strong>Autor:</strong> {{ libro[2] }}</p>
+        <p><strong>Código de Barras:</strong> {{ libro[3] }}</p>
+        <p><strong>categoria:</strong> {{ libro[5] }}</p>
+        <p><strong>Sinopsis:</strong> {{ libro[6] }}</p>
+        <p><strong>Fecha de Publicacion:</strong> {{ libro[8] }}</p>
+        <!-- Agrega aquí cualquier otra información que desees mostrar sobre el libro -->
+        
+        {% if current_user.is_authenticated %}
+          <a href="{{ url_for('generar_prestamo', libro_id=libro[0]) }}" class="btn btn-primary">Generar Préstamo</a>
+        {% else %}
+          <p class="text-danger mt-3">Inicia sesión primero para poder generar el préstamo de los libros.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

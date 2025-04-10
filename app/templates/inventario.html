@@ -1,0 +1,84 @@
+{% if session['id_rol'] == 1 %}
+{% extends 'layout.html' %}
+{% block title %}Libros{% endblock %}
+{% block body %}
+<div class="container">
+  <h1>Información de Libros</h1>
+  <form class="form-inline mb-4" method="GET" action="{{ url_for('libros') }}">
+    <input
+      type="text"
+      name="buscar"
+      class="form-control"
+      size="100" 
+      maxlength="100"   
+      placeholder="Busca un libro por su nombre, autor o código de barras..."
+    />
+    <button type="submit" class="btn btn-primary">Buscar</button>
+  </form>
+  
+      <a href="{{ url_for('libro_agregar') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Nuevo libro
+      </a>
+
+  <table class="table">
+    <thead>
+      <tr>
+        {% if current_user.is_authenticated %}
+          {% if session['id_rol'] == 1 %}
+            <th>Editar</th>
+            <th>Eliminar</th>
+          {% endif %}
+        {% endif %}
+        <th>Ver</th>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Autor</th>
+        <th>Código de Barras</th>
+        <th>Categoria</th>
+        <th>Fecha de publicacion</th>
+        <th>Piezas</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for libro in libros %}
+        <tr>
+          {% if current_user.is_authenticated %}
+            {% if session['id_rol'] == 1 %}
+              <td>
+                <a href="{{ url_for('libro_editar', idlibros=libro[0]) }}" class="btn btn-primary">Editar</a>
+              </td>
+              <td>
+                <form action="{{ url_for('libro_borrar', libro_id=libro[0]) }}" method="POST" onsubmit="return confirmDelete()">
+                  <button type="submit" class="btn btn-danger delete-btn">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                  </button>
+                </form>
+              </td>
+            {% endif %}
+          {% endif %}
+          <td>
+            <a href="{{ url_for('detalle_libro', libro_id=libro[0]) }}" class="btn btn-secondary">
+              <i class="fas fa-eye"></i> Ver
+            </a>
+          </td>
+          <td>{{ libro[0] }}</td>
+          <td>{{ libro[1] }}</td>
+          <td>{{ libro[2] }}</td>
+          <td>{{ libro[3] }}</td>
+          <td>{{ libro[4] }}</td>
+          <td>{{ libro[6] }}</td>
+          <td>{{ libro[5] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  
+  
+  </div>
+  {% endblock %}
+{% else %}
+  <p>Not Found
+    The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>
+{% endif %}
+  

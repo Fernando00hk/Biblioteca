@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+{% block title %}Credencial{% endblock %}
+{% block body %}
+<div class="credencial-container">
+  <h1 class="mb-4">Credencial</h1>
+  <div class="credencial">
+    <div class="credencial-header">
+      <h2>Nombre: {{ username }}</h2>
+    </div>
+    <div class="credencial-info">
+      <p><strong>Correo Electrónico:</strong> {{ email }}</p>
+      <p><strong>Fecha de Nacimiento:</strong> {{ fecha_nacimiento }}</p>
+      <p><strong>Género:</strong> {{ genero }}</p>
+      <p><strong>CURP:</strong> {{ curp }}</p>
+      <!-- Aquí puedes agregar más campos si es necesario -->
+    </div>
+  </div>
+</div>
+<style>
+  .credencial-container {
+    text-align: center;
+    margin: 50px;
+  }
+  .credencial {
+    border: 2px solid #333;
+    padding: 20px;
+    background-color: #f5f5f5;
+    width: 300px;
+    margin: 0 auto;
+  }
+  .credencial-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  .credencial-info {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+</style>
+{% endblock %}
+
